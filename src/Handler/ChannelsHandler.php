@@ -2,7 +2,6 @@
 
 namespace Mia\Message\Handler;
 
-use Mia\Message\Model\MiaMessageChannel;
 use Mia\Message\Repository\MiaMessageChannelRepository;
 
 /**
