@@ -2,6 +2,7 @@
 
 namespace Mia\Message\Model;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Mia\Auth\Model\MIAUser;
 
 /**
@@ -74,5 +75,22 @@ class MiaMessageChannel extends \Illuminate\Database\Eloquent\Model
     public function creator()
     {
         return $this->belongsTo(MIAUser::class, 'creator_id');
-    }    
+    }
+    /**
+    * 
+    * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+    */
+    public function users()
+    {
+        return $this->hasManyThrough(MIAUser::class, MiaMessagePermission::class, 'channel_id', 'id', 'id', 'user_id');
+    }
+    /**
+     * 
+     *
+     * @return HasMany
+     */
+    public function lastMessage()
+    {
+        return $this->hasMany(MiaMessage::class, 'channel_id')->orderBy('created_at', 'desc')->take(1);
+    }
 }

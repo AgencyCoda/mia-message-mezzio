@@ -22,7 +22,7 @@ class MiaMessageChannelRepository
         $query = MiaMessageChannel::select('mia_message_channel.*');
         
         if(!$configure->hasOrder()){
-            $query->orderByRaw('id DESC');
+            $query->orderByRaw('updated_at DESC');
         }
         $search = $configure->getSearch();
         if($search != ''){
