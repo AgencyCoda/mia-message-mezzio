@@ -4,6 +4,7 @@ namespace Mia\Message\Repository;
 
 use \Illuminate\Database\Capsule\Manager as DB;
 use Mia\Message\Model\MiaMessageChannel;
+use Mia\Message\Model\MiaMessagePermission;
 
 /**
  * Description of MiaMessageChannelRepository
@@ -34,5 +35,21 @@ class MiaMessageChannelRepository
         $configure->run($query);
 
         return $query->paginate($configure->getLimit(), ['*'], 'page', $configure->getPage());
+    }
+    /**
+     * Fecth direct channel
+     *
+     * @param int $creatorId
+     * @param int $userId
+     * @return MiaMessageChannel
+     */
+    public static function fetchDirectChannel($creatorId, $userId)
+    {
+        $channels = MiaMessagePermission::where('user_id', $creatorId)->get();
+        $channelIds = array_map(function($c){
+            return $c->id;
+        }, $channels);
+
+        return MiaMessagePermission::where('user_id', $userId)->whereIn($channelIds)->first();
     }
 }
