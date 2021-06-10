@@ -65,7 +65,10 @@ class CreateDirectChannelHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
         $perm2->user_id = $userId;
         $perm2->save();
 
+        $data = $channel->toArray();
+        $data['users'] = $channel->users->toArray();
+
         // Devolvemos respuesta
-        return new \Mia\Core\Diactoros\MiaJsonResponse($channel->toArray());
+        return new \Mia\Core\Diactoros\MiaJsonResponse($data);
     }
 }
