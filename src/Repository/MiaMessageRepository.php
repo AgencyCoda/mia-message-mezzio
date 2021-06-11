@@ -35,4 +35,18 @@ class MiaMessageRepository
 
         return $query->paginate($configure->getLimit(), ['*'], 'page', $configure->getPage());
     }
+
+    public static function countNewMessages($userId)
+    {
+        $row = MiaMessage::selectRaw('COUNT(*) as total')
+            ->whereRaw('(SELECT id FROM mia_message_permission WHERE mia_message_permission.channel_id = mia_message.channel_id AND mia_message_permission.user_id = '.$userId.' LIMIT 1) IS NOT NULL')
+            ->where('mia_message.user_id', '<>', $userId)
+            ->where('mia_message.is_read', 0)
+            ->first();
+
+        if($row === null||$row->total == null){
+            return 0;
+        }
+        return $row->total;
+    }
 }
