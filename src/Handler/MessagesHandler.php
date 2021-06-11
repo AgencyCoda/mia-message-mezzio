@@ -3,6 +3,7 @@
 namespace Mia\Message\Handler;
 
 use Mia\Message\Model\MiaMessageChannel;
+use Mia\Message\Model\MiaMessagePermission;
 use Mia\Message\Repository\MiaMessageRepository;
 
 /**
@@ -98,7 +99,7 @@ class MessagesHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
         // Obtenemos ID si fue enviado
         $itemId = $this->getParam($request, 'channel_id', '');
         // Buscar si existe el tour en la DB
-        $perm = MiaMessageChannel::where('channel_id', $itemId)->where('user_id', $user->id)->first();
+        $perm = MiaMessagePermission::where('channel_id', $itemId)->where('user_id', $user->id)->first();
         // verificar si existe
         if($perm === null){
             return new \Mia\Core\Diactoros\MiaJsonErrorResponse(1, 'Channel is not exist.');
