@@ -45,11 +45,11 @@ class MiaMessageChannelRepository
      */
     public static function fetchDirectChannel($creatorId, $userId)
     {
-        $channels = MiaMessagePermission::where('user_id', $creatorId)->get();
+        $channels = MiaMessagePermission::where('user_id', $creatorId)->get()->toArray();
         $channelIds = array_map(function($c){
-            return $c->id;
+            return $c['id'];
         }, $channels);
 
-        return MiaMessagePermission::where('user_id', $userId)->whereIn($channelIds)->first();
+        return MiaMessagePermission::where('user_id', $userId)->whereIn('channel_id', $channelIds)->first();
     }
 }

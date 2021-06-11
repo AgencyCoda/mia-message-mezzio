@@ -46,25 +46,23 @@ class CreateDirectChannelHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
         $userId = $this->getParam($request, 'user_id', 0);
         // Verify if exist channel
         $channel = MiaMessageChannelRepository::fetchDirectChannel($user->id, $userId);
-        if($channel !== null){
-            return new \Mia\Core\Diactoros\MiaJsonErrorResponse(1, 'Channel is exist.');
+        if($channel === null){
+            // Create new channel
+            $channel = new MiaMessageChannel();
+            $channel->creator_id = $user->id;
+            $channel->title = 'direct-channel';
+            $channel->save();
+            // Create Permissions
+            $perm = new MiaMessagePermission();
+            $perm->channel_id = $channel->id;
+            $perm->user_id = $user->id;
+            $perm->save();
+
+            $perm2 = new MiaMessagePermission();
+            $perm2->channel_id = $channel->id;
+            $perm2->user_id = $userId;
+            $perm2->save();
         }
-        // Create new channel
-        $channel = new MiaMessageChannel();
-        $channel->creator_id = $user->id;
-        $channel->title = 'direct-channel';
-        $channel->save();
-        // Create Permissions
-        $perm = new MiaMessagePermission();
-        $perm->channel_id = $channel->id;
-        $perm->user_id = $user->id;
-        $perm->save();
-
-        $perm2 = new MiaMessagePermission();
-        $perm2->channel_id = $channel->id;
-        $perm2->user_id = $userId;
-        $perm2->save();
-
         $data = $channel->toArray();
         $data['users'] = $channel->users->toArray();
 
