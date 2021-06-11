@@ -98,6 +98,7 @@ class ChannelsHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
         $configure = new \Mia\Database\Query\Configure($this, $request);
         $configure->addJoin('mia_message_permission', 'mia_message_permission.channel_id', 'mia_message_channel.id');
         $configure->addWhere('mia_message_permission.user_id', $user->id);
+        $configure->addSelectRaw('(SELECT COUNT(*) FROM mia_message WHERE mia_message.channel_id = mia_message_channel.id AND mia_message.is_read = 0 AND mia_message.user_id <> '. $user->id.') AS new_messages');
         // Process Query
         $rows = MiaMessageChannelRepository::fetchByConfigure($configure);
         // Return data
