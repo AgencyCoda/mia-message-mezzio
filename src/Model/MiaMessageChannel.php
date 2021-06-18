@@ -91,6 +91,6 @@ class MiaMessageChannel extends \Illuminate\Database\Eloquent\Model
      */
     public function lastMessage()
     {
-        return $this->hasMany(MiaMessage::class, 'channel_id')->orderBy('created_at', 'desc')->take(1);
+        return $this->hasMany(MiaMessage::class, 'channel_id')->orderBy('created_at', 'desc');
     }
 }
