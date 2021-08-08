@@ -17,5 +17,6 @@ composer require agencycoda/mia-message-mezzio
     $app->route('/mia-message/messages-group-date', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\MessagesGroupDateHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.messages-group-date');
     $app->route('/mia-message/create-direct-channel', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\CreateDirectChannelHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.create-direct-channel');
     $app->route('/mia-message/fetch-direct-channel/{user_id}', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\FetchDirectChannelHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.fetch-direct-channel');
+    $app->route('/mia-message/fetch-channel/{id}', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\FetchChannelHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.fetch-channel');
     $app->route('/mia-message/new-messages', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\NewMessagesHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.new-messages');
 ```
