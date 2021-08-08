@@ -9,7 +9,9 @@ composer require agencycoda/mia-message-mezzio
 5. Agregando las rutas:
 ```php
     /** MIA Message **/
-    $app->route('/mia-message/write', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\WriteHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.write');
+    $app->route('/mia-message/write', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\WriteHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.
+    write');
+    $app->route('/mia-message/write-and-create-channel', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\WriteAndCreateChannelHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.write-and-create-channel');
     $app->route('/mia-message/channels', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\ChannelsHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.channels');
     $app->route('/mia-message/messages', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\MessagesHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.messages');
     $app->route('/mia-message/messages-group-date', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\MessagesGroupDateHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.messages-group-date');
