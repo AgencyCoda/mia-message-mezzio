@@ -27,8 +27,8 @@ class MiaMessageChannelRepository
         }
         $search = $configure->getSearch();
         if($search != ''){
-            //$values = $search . '|' . implode('|', explode(' ', $search));
-            //$query->whereRaw('(firstname REGEXP ? OR lastname REGEXP ? OR email REGEXP ?)', [$values, $values, $values]);
+            $values = $search . '|' . implode('|', explode(' ', $search));
+            $query->whereRaw('(SELECT CONCAT(mia_message.content, " ", mia_message.data) FROM mia_message WHERE mia_message.channel_id = mia_message_channel.id ORDER BY id DESC LIMIT 1) REGEXP ?', $values);
         }
         
         // Procesar parametros
