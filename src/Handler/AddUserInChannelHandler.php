@@ -110,7 +110,7 @@ class AddUserInChannelHandler extends \Mia\Auth\Request\MiaAuthRequestHandler
         }
         // Create new permission
         $perm = new MiaMessagePermission();
-        $perm->channel_id = $perm->channel_id;
+        $perm->channel_id = $channelId;
         $perm->user_id = $addUserId;
         $perm->save();
         // Devolvemos respuesta
