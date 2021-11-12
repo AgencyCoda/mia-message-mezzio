@@ -18,5 +18,6 @@ composer require agencycoda/mia-message-mezzio
     $app->route('/mia-message/create-direct-channel', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\CreateDirectChannelHandler::class], ['GET', 'POST', 'OPTIONS', 'HEAD'], 'mia-message.create-direct-channel');
     $app->route('/mia-message/fetch-direct-channel/{user_id}', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\FetchDirectChannelHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.fetch-direct-channel');
     $app->route('/mia-message/fetch-channel/{id}', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\FetchChannelHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.fetch-channel');
+    $app->route('/mia-message/remove-channel/{id}', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\RemoveChannelHandler::class], ['GET', 'DELETE', 'OPTIONS', 'HEAD'], 'mia-message.remove-channel');
     $app->route('/mia-message/new-messages', [\Mia\Auth\Handler\AuthHandler::class, \Mia\Message\Handler\NewMessagesHandler::class], ['GET', 'OPTIONS', 'HEAD'], 'mia-message.new-messages');
 ```
